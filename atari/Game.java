@@ -6,9 +6,10 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable, KeyListener {
     private static boolean _running = true;
-    private static boolean _gameOver = false;
+    private boolean _gameOver = false;
     public static final int GAME_WIDTH = 500;
     public static final int GAME_HEIGHT = 700;
+    public static final Game game = new Game();
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
     private final Ball ball;
@@ -20,8 +21,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     public static void main(String[] args) {
-        var game = new Game();
-
         JFrame window = new JFrame("Atari - AWJ");
 
         window.addKeyListener(game);
@@ -37,6 +36,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     public void gameOver() {
+        _gameOver = true;
+
         pause();
 
         Graphics2D g = (Graphics2D)this.graphics;
@@ -62,6 +63,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
         if (this.ball.overflowsTheBar()) {
             gameOver();
         }
+    }
+
+    private void restart() {
+        this.ball.setY((int) (GAME_HEIGHT * 0.4));
+        this.ball.setX(0);
+
+        _gameOver = false;
+        _running = true;
+
+        new Thread(game).start();
     }
 
     public void render() {
@@ -111,6 +122,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
+        if (this._gameOver) {
+            if (keyEvent.getKeyCode() == KeyEvent.VK_R) {
+                restart();
+
+                return;
+            }
+        }
+
         switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_D:
             case KeyEvent.VK_RIGHT:
