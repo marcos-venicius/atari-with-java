@@ -3,16 +3,22 @@ public class Bar {
     private final int height;
     private int x;
     private final int y;
-    private final int gameWidth;
+    private final int velocity = 10;
 
-    public Bar(int gameWidth, int gameHeight, int x, int y, int width, int height) {
-        this.x = Math.max(0, Math.min(x, gameWidth - width));
-        this.y = Math.max(0, Math.min(y, gameHeight - height));
-
-        this.gameWidth = gameWidth;
+    public Bar(int x, int y, int width, int height) {
+        this.x = Math.max(0, Math.min(x, Game.GAME_WIDTH - width));
+        this.y = Math.max(0, Math.min(y, Game.GAME_HEIGHT - height));
 
         this.width = width;
         this.height = height;
+    }
+
+    public void moveRight() {
+        this.setX(this.x + velocity);
+    }
+
+    public void moveLeft() {
+        this.setX(this.x - velocity);
     }
 
     public int getWidth() {
@@ -28,7 +34,7 @@ public class Bar {
     }
 
     public void setX(int x) {
-        this.x = Math.max(0, Math.min(x, this.gameWidth - this.width));
+        this.x = Math.max(0, Math.min(x, Game.GAME_WIDTH - this.width));
     }
 
     public int getY() {
