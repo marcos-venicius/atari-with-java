@@ -7,17 +7,19 @@ import java.awt.image.BufferStrategy;
 public class Game extends Canvas implements Runnable, KeyListener {
     private static boolean _running = true;
     private boolean _gameOver = false;
-    public static final int GAME_WIDTH = 500;
+    public static final int GAME_WIDTH = Wall.getNecessaryDisplayWidthToRenderWall();
     public static final int GAME_HEIGHT = 700;
     public static final Game game = new Game();
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
     private final Ball ball;
     private final Bar bar;
+    private final Wall wall;
 
     public Game() {
-        bar = new Bar(200, 600, 100, 10);
-        ball = new Ball(bar, 0, (int) (GAME_HEIGHT * 0.4), 5);
+        this.wall = new Wall();
+        this.bar = new Bar(200, 600, 100, 10);
+        this.ball = new Ball(bar, 0, (int) (GAME_HEIGHT * 0.4), 5);
     }
 
     public static void main(String[] args) {
@@ -56,13 +58,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     public void update() {
-        this.ball.checkCollisionWithWalls();
-        this.ball.checkCollisionWithBar();
-        this.ball.move();
+//        this.ball.checkCollisionWithWalls();
+//        this.ball.checkCollisionWithBar();
+//        this.ball.move();
 
-        if (this.ball.overflowsTheBar()) {
-            gameOver();
-        }
+//        if (this.ball.overflowsTheBar()) {
+//            gameOver();
+//        }
     }
 
     private void restart() {
@@ -78,14 +80,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public void render() {
         bufferStrategy.show();
 
-        graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        this.graphics.setColor(Color.BLACK);
+        this.graphics.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
-        graphics.setColor(Color.WHITE);
-        graphics.fillOval(ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
+        this.graphics.setColor(Color.WHITE);
+        this.graphics.fillOval(ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
 
-        graphics.setColor(Color.WHITE);
-        graphics.fillRect(bar.getX(), bar.getY(), bar.getWidth(), bar.getHeight());
+        this.graphics.setColor(Color.WHITE);
+        this.graphics.fillRect(bar.getX(), bar.getY(), bar.getWidth(), bar.getHeight());
+
+        this.wall.render(this.graphics);
     }
 
     public static void pause() {
