@@ -18,8 +18,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public Game() {
         this.wall = new Wall();
-        this.bar = new Bar(200, 600, 100, 10);
-        this.ball = new Ball(bar, 0, (int) (GAME_HEIGHT * 0.4), 5);
+        this.bar = new Bar(600, 100, 10);
+        this.ball = new Ball(bar, (int) (GAME_HEIGHT * 0.4), 5);
     }
 
     public static void main(String[] args) {
@@ -69,8 +69,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     private void restart() {
-        this.ball.setY((int) (GAME_HEIGHT * 0.4));
-        this.ball.setX(0);
+        this.ball.randomizeX();
+        this.ball.resetY();
+        this.bar.randomizeX();
 
         _gameOver = false;
         _running = true;
