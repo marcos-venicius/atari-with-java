@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
         pause();
 
-        Graphics2D g = (Graphics2D)this.graphics;
+        Graphics2D g = (Graphics2D) this.graphics;
 
         g.setColor(Color.RED);
         g.setFont(new Font("Arial", Font.BOLD, 40));
@@ -58,13 +58,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     public void update() {
-//        this.ball.checkCollisionWithWalls();
-//        this.ball.checkCollisionWithBar();
-//        this.ball.move();
+        this.ball.checkCollisionsWithWallBlocks(this.wall);
+        this.ball.checkCollisionWithWalls();
+        this.ball.checkCollisionWithBar();
+        this.ball.move();
 
-//        if (this.ball.overflowsTheBar()) {
-//            gameOver();
-//        }
+        if (this.ball.overflowsTheBar()) {
+            gameOver();
+        }
     }
 
     private void restart() {
