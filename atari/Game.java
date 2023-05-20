@@ -8,7 +8,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private static boolean _running = true;
     private boolean _gameOver = false;
     public static final int GAME_WIDTH = Wall.getNecessaryDisplayWidthToRenderWall();
-    public static final int GAME_HEIGHT = 700;
+    public static final int GAME_HEIGHT = (int)(Wall.getNecessaryDisplayWidthToRenderWall() * 1.1);
     public static final Game game = new Game();
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
@@ -18,7 +18,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public Game() {
         this.wall = new Wall();
-        this.bar = new Bar(600, 100, 10);
+        this.bar = new Bar((int)(GAME_HEIGHT * 0.9), 100, 10);
         this.ball = new Ball(bar, (int) (GAME_HEIGHT * 0.4), 5);
     }
 

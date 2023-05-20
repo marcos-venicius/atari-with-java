@@ -2,8 +2,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Wall {
-    private static final int WALL_COLUMNS_COUNT = 7;
-    private static final int WALL_ROWS_COUNT = 3;
+    private static final int WALL_COLUMNS_COUNT = 10;
+    private static final int WALL_ROWS_COUNT = 4;
     private static final int WALL_BLOCK_WIDTH = 50;
     private static final int WALL_BLOCK_HEIGHT = 10;
     private static final int WALL_BLOCK_SPACING = 5;
