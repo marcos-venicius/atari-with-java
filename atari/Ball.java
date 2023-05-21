@@ -87,7 +87,7 @@ public class Ball {
     public void checkCollisionWithBar() {
         if (this.yDirection == 1) {
             float closestX = clamp(this.x, this.bar.getX(), this.bar.getX() + this.bar.getWidth());
-            float closestY = clamp(this.y, this.bar.getY() - this.bar.getHeight(), this.bar.getY());
+            float closestY = clamp(this.y, this.bar.getY() - (int)(this.bar.getHeight() / 2), this.bar.getY());
 
             float distanceX = this.x - closestX;
             float distanceY = this.y - closestY;
