@@ -6,7 +6,7 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable, KeyListener {
     public static final int GAME_WIDTH = Wall.getNecessaryDisplayWidthToRenderWall();
-    public static final int GAME_HEIGHT = (int)(Wall.getNecessaryDisplayWidthToRenderWall() * 1.1);
+    public static final int GAME_HEIGHT = (int) (Wall.getNecessaryDisplayWidthToRenderWall() * 1.1);
 
     private static boolean _running = true;
     private boolean _gameOver = false;
@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public Game() {
         this.wall = new Wall();
         this.ball = new Ball((int) (GAME_HEIGHT * 0.4), 5);
-        this.bar = new Bar((int)(GAME_HEIGHT * 0.9), 100, 10);
+        this.bar = new Bar((int) (GAME_HEIGHT * 0.9), 100, 10);
     }
 
     public static void main(String[] args) {
@@ -128,7 +128,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent keyEvent) { }
+    public void keyTyped(KeyEvent keyEvent) {
+    }
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
@@ -155,5 +156,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent keyEvent) { }
+    public void keyReleased(KeyEvent keyEvent) {
+    }
 }
