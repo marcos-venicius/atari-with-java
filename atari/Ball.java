@@ -70,7 +70,16 @@ public class Ball {
     }
 
     public boolean overflowsTheBar() {
-        return this.y >= this.bar.getY();
+        boolean overflowBarY = this.y + this.height > this.bar.getY();
+
+        if (overflowBarY) {
+            boolean overflowToTheLeftOfTheBar = this.x + this.width < this.bar.getX();
+            boolean overflowToTheRightOfTheBar = this.x > this.bar.getX() + this.bar.getWidth();
+
+            return overflowToTheLeftOfTheBar || overflowToTheRightOfTheBar;
+        }
+
+        return false;
     }
 
     public void move() {
