@@ -4,28 +4,30 @@ import java.util.Random;
 public class Ball {
     private final int width;
     private final int height;
-    private int x = 0;
+
+    private int x;
     private int y;
     private final int initialY;
+
+    private final int ray;
     private int xDirection = 1;
     private int yDirection = 1;
-    private final Bar bar;
 
-    public Ball(Bar bar, int y, int ray) {
-        this.randomizeX();
-
-        this.bar = bar;
-        this.y = Math.max(0, Math.min(y, Game.GAME_HEIGHT - ray * 2));
-        this.initialY = this.y;
-
+    public Ball(int y, int ray) {
         this.width = ray * 2;
         this.height = ray * 2;
+
+        this.randomizeX();
+
+        this.ray = ray;
+        this.y = Math.max(0, Math.min(y, Game.GAME_HEIGHT - ray * 2));
+        this.initialY = this.y;
     }
 
     public void randomizeX() {
         Random random = new Random();
 
-        this.x = random.nextInt(Game.GAME_WIDTH - this.getWidth());
+        this.setX(random.nextInt(Game.GAME_WIDTH - this.getWidth()));
     }
 
     public void resetY() {
@@ -46,13 +48,23 @@ public class Ball {
         }
     }
 
+    private boolean ballCollideWithBlock(WallBlock block) {
+        float closestX = clamp(this.x, block.getX(), block.getX() + block.getWidth());
+        float closestY = clamp(this.y, block.getY() - block.getHeight(), block.getY());
+
+        float distanceX = this.x - closestX;
+        float distanceY = this.y - closestY;
+
+        return Math.pow(distanceX, 2) + Math.pow(distanceY, 2) < Math.pow(this.ray * 2, 2);
+    }
+
     public void checkCollisionsWithWallBlocks(Wall wall) {
         for (ArrayList<WallBlock> row : wall.getWall()) {
-            for (WallBlock col : row) {
-                if (this.y <= col.getY() + col.getHeight()) {
-                    if (this.x >= col.getX() - this.width - 1 && this.x <= col.getX() + col.getWidth() - 1) {
-                        row.remove(col);
+            for (WallBlock block : row) {
+                if (this.y <= block.getY() + block.getHeight()) {
+                    if (this.ballCollideWithBlock(block)) {
                         this.yDirection = 1;
+                        row.remove(block);
                         break;
                     }
                 }
@@ -60,17 +72,43 @@ public class Ball {
         }
     }
 
-    public void checkCollisionWithBar() {
-        if (this.yDirection == 1 &&
-                this.y >= this.bar.getY() - this.height &&
-                this.y <= this.bar.getY() + this.bar.getHeight() &&
-                this.x >= this.bar.getX() && this.x <= this.bar.getX() + this.bar.getWidth() - this.width) {
-            this.yDirection = -1;
+    private static float clamp(float value, float min, float max) {
+        float x = value;
+
+        if (x < min) {
+            x = min;
+        } else if (x > max) {
+            x = max;
+        }
+
+        return x;
+    }
+
+    public void checkCollisionWithBar(Bar bar) {
+        if (this.yDirection == 1) {
+            float closestX = clamp(this.x, bar.getX(), bar.getX() + bar.getWidth());
+            float closestY = clamp(this.y, bar.getY() - (int) (bar.getHeight() / 2), bar.getY());
+
+            float distanceX = this.x - closestX;
+            float distanceY = this.y - closestY;
+
+            if (Math.pow(distanceX, 2) + Math.pow(distanceY, 2) < Math.pow(this.ray, 2)) {
+                this.yDirection = -1;
+            }
         }
     }
 
-    public boolean overflowsTheBar() {
-        return this.y >= this.bar.getY();
+    public boolean overflowsTheBar(Bar bar) {
+        boolean overflowBarY = this.y + this.height > bar.getY();
+
+        if (overflowBarY) {
+            boolean overflowToTheLeftOfTheBar = this.x + this.width < bar.getX();
+            boolean overflowToTheRightOfTheBar = this.x > bar.getX() + bar.getWidth();
+
+            return overflowToTheLeftOfTheBar || overflowToTheRightOfTheBar;
+        }
+
+        return false;
     }
 
     public void move() {

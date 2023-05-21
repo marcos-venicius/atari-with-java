@@ -1,25 +1,34 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable, KeyListener {
+    public static final int GAME_WIDTH = Wall.getNecessaryDisplayWidthToRenderWall();
+    public static final int GAME_HEIGHT = (int) (Wall.getNecessaryDisplayWidthToRenderWall() * 1.1);
+
     private static boolean _running = true;
     private boolean _gameOver = false;
-    public static final int GAME_WIDTH = Wall.getNecessaryDisplayWidthToRenderWall();
-    public static final int GAME_HEIGHT = (int)(Wall.getNecessaryDisplayWidthToRenderWall() * 1.1);
+
     public static final Game game = new Game();
+
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
+
+    private final Wall wall;
     private final Ball ball;
     private final Bar bar;
-    private final Wall wall;
 
     public Game() {
         this.wall = new Wall();
-        this.bar = new Bar((int)(GAME_HEIGHT * 0.9), 100, 10);
-        this.ball = new Ball(bar, (int) (GAME_HEIGHT * 0.4), 5);
+        this.ball = new Ball((int) (GAME_HEIGHT * 0.4), 5);
+        this.bar = new Bar((int) (GAME_HEIGHT * 0.9), 100, 10);
     }
 
     public static void main(String[] args) {
@@ -60,10 +69,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public void update() {
         this.ball.checkCollisionsWithWallBlocks(this.wall);
         this.ball.checkCollisionWithWalls();
-        this.ball.checkCollisionWithBar();
+        this.ball.checkCollisionWithBar(this.bar);
         this.ball.move();
 
-        if (this.ball.overflowsTheBar()) {
+        if (this.ball.overflowsTheBar(this.bar)) {
             gameOver();
         }
     }
@@ -153,6 +162,5 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-
     }
 }
