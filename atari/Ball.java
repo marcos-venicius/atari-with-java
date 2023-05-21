@@ -4,19 +4,19 @@ import java.util.Random;
 public class Ball {
     private final int width;
     private final int height;
-    private int x = 0;
+
+    private int x;
     private int y;
     private final int initialY;
+
     private final int ray;
     private int xDirection = 1;
     private int yDirection = 1;
-    private final Bar bar;
 
-    public Ball(Bar bar, int y, int ray) {
+    public Ball(int y, int ray) {
         this.randomizeX();
 
         this.ray = ray;
-        this.bar = bar;
         this.y = Math.max(0, Math.min(y, Game.GAME_HEIGHT - ray * 2));
         this.initialY = this.y;
 
@@ -84,10 +84,10 @@ public class Ball {
         return x;
     }
 
-    public void checkCollisionWithBar() {
+    public void checkCollisionWithBar(Bar bar) {
         if (this.yDirection == 1) {
-            float closestX = clamp(this.x, this.bar.getX(), this.bar.getX() + this.bar.getWidth());
-            float closestY = clamp(this.y, this.bar.getY() - (int)(this.bar.getHeight() / 2), this.bar.getY());
+            float closestX = clamp(this.x, bar.getX(), bar.getX() + bar.getWidth());
+            float closestY = clamp(this.y, bar.getY() - (int)(bar.getHeight() / 2), bar.getY());
 
             float distanceX = this.x - closestX;
             float distanceY = this.y - closestY;
@@ -98,12 +98,12 @@ public class Ball {
         }
     }
 
-    public boolean overflowsTheBar() {
-        boolean overflowBarY = this.y + this.height > this.bar.getY();
+    public boolean overflowsTheBar(Bar bar) {
+        boolean overflowBarY = this.y + this.height > bar.getY();
 
         if (overflowBarY) {
-            boolean overflowToTheLeftOfTheBar = this.x + this.width < this.bar.getX();
-            boolean overflowToTheRightOfTheBar = this.x > this.bar.getX() + this.bar.getWidth();
+            boolean overflowToTheLeftOfTheBar = this.x + this.width < bar.getX();
+            boolean overflowToTheRightOfTheBar = this.x > bar.getX() + bar.getWidth();
 
             return overflowToTheLeftOfTheBar || overflowToTheRightOfTheBar;
         }
