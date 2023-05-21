@@ -7,6 +7,7 @@ public class Ball {
     private int x = 0;
     private int y;
     private final int initialY;
+    private final int ray;
     private int xDirection = 1;
     private int yDirection = 1;
     private final Bar bar;
@@ -14,6 +15,7 @@ public class Ball {
     public Ball(Bar bar, int y, int ray) {
         this.randomizeX();
 
+        this.ray = ray;
         this.bar = bar;
         this.y = Math.max(0, Math.min(y, Game.GAME_HEIGHT - ray * 2));
         this.initialY = this.y;
@@ -60,12 +62,29 @@ public class Ball {
         }
     }
 
+    private static float clamp(float value, float min, float max) {
+        float x = value;
+
+        if (x < min) {
+            x = min;
+        } else if (x > max) {
+            x = max;
+        }
+
+        return x;
+    }
+
     public void checkCollisionWithBar() {
-        if (this.yDirection == 1 &&
-                this.y >= this.bar.getY() - this.height &&
-                this.y <= this.bar.getY() + this.bar.getHeight() &&
-                this.x >= this.bar.getX() && this.x <= this.bar.getX() + this.bar.getWidth() - this.width) {
-            this.yDirection = -1;
+        if (this.yDirection == 1) {
+            float closestX = clamp(this.x, this.bar.getX(), this.bar.getX() + this.bar.getWidth());
+            float closestY = clamp(this.y, this.bar.getY() - this.bar.getHeight(), this.bar.getY());
+
+            float distanceX = this.x - closestX;
+            float distanceY = this.y - closestY;
+
+            if (Math.pow(distanceX, 2) + Math.pow(distanceY, 2) < Math.pow(this.ray, 2)) {
+                this.yDirection = -1;
+            }
         }
     }
 
