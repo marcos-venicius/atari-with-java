@@ -40,3 +40,17 @@ A game made to remember java and test my skills.
 #### Game over screen
 
 ![Screenshot from 2023-05-20 15-12-56](https://github.com/marcos-venicius/atari-with-java/assets/94018427/6f1d28ca-194a-4226-a25e-b7e527a7e086)
+
+
+### 21/may/2023
+
+- Recreate the wall when restart the game
+
+#### Game running screen
+
+![Screenshot from 2023-05-21 08-51-29](https://github.com/marcos-venicius/atari-with-java/assets/94018427/14a9f3b0-5240-4ba7-adb2-fba1c7c688ce)
+
+#### Game over screen
+
+![Screenshot from 2023-05-21 08-51-33](https://github.com/marcos-venicius/atari-with-java/assets/94018427/b6ff16c6-d699-49f0-a06f-8227fed379a5)
+
