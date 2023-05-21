@@ -48,13 +48,23 @@ public class Ball {
         }
     }
 
+    private boolean ballCollideWithBlock(WallBlock block) {
+        float closestX = clamp(this.x, block.getX(), block.getX() + block.getWidth());
+        float closestY = clamp(this.y, block.getY() - block.getHeight(), block.getY());
+
+        float distanceX = this.x - closestX;
+        float distanceY = this.y - closestY;
+
+        return Math.pow(distanceX, 2) + Math.pow(distanceY, 2) < Math.pow(this.ray * 2, 2);
+    }
+
     public void checkCollisionsWithWallBlocks(Wall wall) {
         for (ArrayList<WallBlock> row : wall.getWall()) {
-            for (WallBlock col : row) {
-                if (this.y <= col.getY() + col.getHeight()) {
-                    if (this.x >= col.getX() - this.width - 1 && this.x <= col.getX() + col.getWidth() - 1) {
-                        row.remove(col);
+            for (WallBlock block : row) {
+                if (this.y <= block.getY() + block.getHeight()) {
+                    if (this.ballCollideWithBlock(block)) {
                         this.yDirection = 1;
+                        row.remove(block);
                         break;
                     }
                 }
