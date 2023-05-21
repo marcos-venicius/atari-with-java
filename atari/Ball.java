@@ -14,20 +14,20 @@ public class Ball {
     private int yDirection = 1;
 
     public Ball(int y, int ray) {
+        this.width = ray * 2;
+        this.height = ray * 2;
+
         this.randomizeX();
 
         this.ray = ray;
         this.y = Math.max(0, Math.min(y, Game.GAME_HEIGHT - ray * 2));
         this.initialY = this.y;
-
-        this.width = ray * 2;
-        this.height = ray * 2;
     }
 
     public void randomizeX() {
         Random random = new Random();
 
-        this.x = random.nextInt(Game.GAME_WIDTH - this.getWidth());
+        this.setX(random.nextInt(Game.GAME_WIDTH - this.getWidth()));
     }
 
     public void resetY() {
@@ -87,7 +87,7 @@ public class Ball {
     public void checkCollisionWithBar(Bar bar) {
         if (this.yDirection == 1) {
             float closestX = clamp(this.x, bar.getX(), bar.getX() + bar.getWidth());
-            float closestY = clamp(this.y, bar.getY() - (int)(bar.getHeight() / 2), bar.getY());
+            float closestY = clamp(this.y, bar.getY() - (int) (bar.getHeight() / 2), bar.getY());
 
             float distanceX = this.x - closestX;
             float distanceY = this.y - closestY;
