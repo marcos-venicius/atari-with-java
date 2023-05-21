@@ -72,6 +72,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         this.ball.randomizeX();
         this.ball.resetY();
         this.bar.randomizeX();
+        this.wall.rebuild();
 
         _gameOver = false;
         _running = true;
