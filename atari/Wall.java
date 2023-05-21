@@ -21,14 +21,12 @@ public class Wall {
 
             for (int col = 0; col < WALL_COLUMNS_COUNT; col++) {
                 int i = row * WALL_ROWS_COUNT + row * WALL_BLOCK_SPACING;
+                Color color = Color.getHSBColor((float) i / (float) WALL_COLUMNS_COUNT, 0.85f, 1.0f);
 
-                rowBlocks.add(new WallBlock(
-                        WALL_BLOCK_WIDTH,
-                        WALL_BLOCK_HEIGHT,
-                        WALL_BLOCK_SPACING + col * WALL_BLOCK_WIDTH + col * WALL_BLOCK_SPACING,
-                        INITIAL_Y + WALL_BLOCK_SPACING + row * WALL_BLOCK_HEIGHT + row * WALL_BLOCK_SPACING,
-                        Color.getHSBColor((float) i / (float) WALL_COLUMNS_COUNT, 0.85f, 1.0f)
-                ));
+                int x = WALL_BLOCK_SPACING + col * WALL_BLOCK_WIDTH + col * WALL_BLOCK_SPACING;
+                int y = INITIAL_Y + WALL_BLOCK_SPACING + row * WALL_BLOCK_HEIGHT + row * WALL_BLOCK_SPACING;
+
+                rowBlocks.add(new WallBlock(WALL_BLOCK_WIDTH, WALL_BLOCK_HEIGHT, x, y, color));
             }
 
             wall.add(rowBlocks);
