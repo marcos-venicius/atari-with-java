@@ -1,3 +1,4 @@
+import javax.sound.sampled.Clip;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,7 +14,13 @@ public class Ball {
     private int xDirection = 1;
     private int yDirection = 1;
 
+    private final Clip breakBlockSong;
+
     public Ball(int y, int ray) {
+        var gameSongs = new GameSongs();
+
+        this.breakBlockSong = gameSongs.load("./assets/songs/break-block.wav");
+
         this.width = ray * 2;
         this.height = ray * 2;
 
@@ -65,6 +72,7 @@ public class Ball {
                     if (this.ballCollideWithBlock(block)) {
                         this.yDirection = 1;
                         row.remove(block);
+                        this.breakBlockSong.start();
                         break;
                     }
                 }
@@ -94,6 +102,9 @@ public class Ball {
 
             if (Math.pow(distanceX, 2) + Math.pow(distanceY, 2) < Math.pow(this.ray, 2)) {
                 this.yDirection = -1;
+
+                this.breakBlockSong.setFramePosition(0);
+                this.breakBlockSong.stop();
             }
         }
     }
