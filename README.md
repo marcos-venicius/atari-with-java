@@ -60,3 +60,4 @@ A game made to remember java and test my skills.
 - [Background music](https://pixabay.com/music/synthwave-neon-gaming-128925/)
 - [Game over song](https://pixabay.com/sound-effects/boom-geomorphism-cinematic-trailer-sound-effects-123876/)
 - [Break block song](https://pixabay.com/sound-effects/jump-and-spark-6136/)
+- [Walls hit song](https://pixabay.com/sound-effects/interface-124464/)

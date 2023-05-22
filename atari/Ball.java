@@ -15,11 +15,13 @@ public class Ball {
     private int yDirection = 1;
 
     private final Clip breakBlockSong;
+    private final Clip collisionSong;
 
     public Ball(int y, int ray) {
         var gameSongs = new GameSongs();
 
         this.breakBlockSong = gameSongs.load("./assets/songs/break-block.wav");
+        this.collisionSong = gameSongs.load("./assets/songs/click.wav");
 
         this.width = ray * 2;
         this.height = ray * 2;
@@ -43,14 +45,22 @@ public class Ball {
 
     public void checkCollisionWithWalls() {
         if (this.x >= Game.GAME_WIDTH - this.width) {
+            this.collisionSong.setMicrosecondPosition(0);
+            this.collisionSong.start();
             this.xDirection = -1;
         } else if (this.x <= 0) {
+            this.collisionSong.setMicrosecondPosition(0);
+            this.collisionSong.start();
             this.xDirection = 1;
         }
 
         if (this.y >= Game.GAME_HEIGHT - this.height) {
+            this.collisionSong.setMicrosecondPosition(0);
+            this.collisionSong.start();
             this.yDirection = -1;
         } else if (this.y <= 0) {
+            this.collisionSong.setMicrosecondPosition(0);
+            this.collisionSong.start();
             this.yDirection = 1;
         }
     }
@@ -103,6 +113,8 @@ public class Ball {
             if (Math.pow(distanceX, 2) + Math.pow(distanceY, 2) < Math.pow(this.ray, 2)) {
                 this.yDirection = -1;
 
+                this.collisionSong.setMicrosecondPosition(0);
+                this.collisionSong.start();
                 this.breakBlockSong.setFramePosition(0);
                 this.breakBlockSong.stop();
             }
