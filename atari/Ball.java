@@ -20,8 +20,8 @@ public class Ball {
     public Ball(int y, int ray) {
         var gameSongs = new GameSongs();
 
-        this.breakBlockSong = gameSongs.load("./assets/songs/break-block.wav");
-        this.collisionSong = gameSongs.load("./assets/songs/click.wav");
+        this.breakBlockSong = gameSongs.load("break-block.wav");
+        this.collisionSong = gameSongs.load("click.wav");
 
         this.width = ray * 2;
         this.height = ray * 2;

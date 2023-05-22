@@ -31,8 +31,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public Game() {
         var gameSongs = new GameSongs();
 
-        this.backgroundMusic = gameSongs.load("./assets/songs/music.wav");
-        this.gameOverSong = gameSongs.load("./assets/songs/game-over.wav");
+        this.backgroundMusic = gameSongs.load("music.wav");
+        this.gameOverSong = gameSongs.load("game-over.wav");
 
         this.wall = new Wall();
         this.ball = new Ball((int) (GAME_HEIGHT * 0.4), 5);
