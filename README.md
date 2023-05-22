@@ -58,3 +58,4 @@ A game made to remember java and test my skills.
 # Credits
 
 - [Background music](https://pixabay.com/music/synthwave-neon-gaming-128925/)
+- [Game over song](https://pixabay.com/sound-effects/boom-geomorphism-cinematic-trailer-sound-effects-123876/)
