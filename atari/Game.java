@@ -1,3 +1,4 @@
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -24,8 +25,15 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private final Wall wall;
     private final Ball ball;
     private final Bar bar;
+    private final Clip backgroundMusic;
+    private final Clip gameOverSong;
 
     public Game() {
+        var gameSongs = new GameSongs();
+
+        this.backgroundMusic = gameSongs.load("./assets/songs/music.wav");
+        this.gameOverSong = gameSongs.load("./assets/songs/game-over.wav");
+
         this.wall = new Wall();
         this.ball = new Ball((int) (GAME_HEIGHT * 0.4), 5);
         this.bar = new Bar((int) (GAME_HEIGHT * 0.9), 100, 10);
@@ -47,6 +55,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     public void gameOver() {
+        this.backgroundMusic.stop();
+
+        this.gameOverSong.start();
+
         _gameOver = true;
 
         pause();
@@ -110,6 +122,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     @Override
     public void run() {
+        if (this.gameOverSong.isRunning() || this.gameOverSong.isActive()) {
+            this.gameOverSong.setFramePosition(0);
+            this.gameOverSong.setMicrosecondPosition(0);
+            this.gameOverSong.stop();
+        }
+
+        this.backgroundMusic.setFramePosition(0);
+        this.backgroundMusic.setMicrosecondPosition(0);
+        this.backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+
         createBufferStrategy(2);
 
         this.bufferStrategy = getBufferStrategy();

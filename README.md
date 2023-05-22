@@ -54,3 +54,10 @@ A game made to remember java and test my skills.
 
 ![Screenshot from 2023-05-21 08-51-33](https://github.com/marcos-venicius/atari-with-java/assets/94018427/b6ff16c6-d699-49f0-a06f-8227fed379a5)
 
+
+# Credits
+
+- [Background music](https://pixabay.com/music/synthwave-neon-gaming-128925/)
+- [Game over song](https://pixabay.com/sound-effects/boom-geomorphism-cinematic-trailer-sound-effects-123876/)
+- [Break block song](https://pixabay.com/sound-effects/jump-and-spark-6136/)
+- [Walls hit song](https://pixabay.com/sound-effects/interface-124464/)
