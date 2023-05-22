@@ -57,6 +57,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public void gameOver() {
         this.backgroundMusic.stop();
 
+        this.gameOverSong.setMicrosecondPosition(0);
         this.gameOverSong.start();
 
         _gameOver = true;
