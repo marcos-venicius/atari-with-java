@@ -1,3 +1,4 @@
+import javax.sound.sampled.*;
 import javax.swing.JFrame;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -8,6 +9,10 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Game extends Canvas implements Runnable, KeyListener {
     public static final int GAME_WIDTH = Wall.getNecessaryDisplayWidthToRenderWall();
@@ -110,6 +115,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     @Override
     public void run() {
+        var gameSongs = new GameSongs();
+
+        gameSongs.play("./assets/songs/music.wav", true);
+
         createBufferStrategy(2);
 
         this.bufferStrategy = getBufferStrategy();
